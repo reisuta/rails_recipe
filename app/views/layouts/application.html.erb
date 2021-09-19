@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Recipe</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RecipegramDemo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-  <% if flash[:notice] %>
-  <div class="notification is-info">
-   <p class="notice"><%= notice %></p>
-   </div>
-   <% end %>
-
-   <% if flash[:alert]%>
-   <div class="notification is-danger">
-    <p class="alert"><%= alert %></p>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <p class="alert"><%= alert %></p>
+      </div>
     <% end %>
 
-   <nav class="navbar is-warning">
+    <nav class="navbar is-warning">
       <div class="navbar-brand">
-       <%= link_to root_path, class: "navbar-item" do %>
+        <%= link_to root_path, class: "navbar-item" do %>
           <h1 class="title is-4" style="font-family: cursive;">recipegram</h1>
         <% end %>
         <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
@@ -37,12 +37,21 @@
 
       <% if user_signed_in? %>
         <div id="navbarExampleTransparentExample" class="navbar-menu">
-          
+          <div class="navbar-item">
+            <%= link_to "レシピ一覧", recipes_path, class: "navbar-item button is-warning is-light" %>
+          </div>
+          <div class="navbar-item">
+            <%= link_to "レシピ投稿", new_recipe_path, class: "navbar-item button is-warning is-light" %>
+          </div>
+
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="field is-grouped">
                 <p class="control">
                   <%= link_to "レシピグラマー一覧", users_path, class: " button is-warning is-light" %>
+                </p>
+                <p class="control">
+                  <%= link_to "マイページ", user_path(current_user), class: "button is-warning is-light" %>
                 </p>
                 <p class="control">
                   <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
@@ -53,6 +62,9 @@
         </div>
       <% else %>
         <div id="navbarExampleTransparentExample" class="navbar-menu">
+          <div class="navbar-item">
+            <%= link_to "レシピ一覧", recipes_path, class: "navbar-item button is-warning is-light" %>
+          </div>
           <div class="navbar-item">
             <%= link_to "レシピグラマー一覧", users_path, class: "navbar-item button is-warning is-light" %>
           </div>
