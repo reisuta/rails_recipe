@@ -22,6 +22,12 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
   end
 
+  def destory
+    recipe = Recipe.find(params[:id])
+    recipe.destory
+    redirect_to recipes_path
+  end
+
   def update
     @recipe = Recipe.find(params[:id])
     @recipe.update(recipe_params)
